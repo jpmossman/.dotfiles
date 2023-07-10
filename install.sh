@@ -6,17 +6,13 @@
 main() {
     install_manual
     install_packages
-    stow_packages
 }
 
 ###############################################################################
 # install local dotfiles
 ###############################################################################
 stow_packages() {
-    # stow all packages
-    stow zsh
-    stow nvim
-    stow git
+    ./stow_all.sh
 }
 
 ###############################################################################
