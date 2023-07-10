@@ -1,0 +1,11 @@
+[user]
+	name = JP Mossman
+	email = jp.mossman@chamberlain.com
+[credential]
+	helper = store
+[core]
+	autocrlf = input
+[alias]
+	tree = log --graph --oneline
+[init]
+	defaultBranch = main

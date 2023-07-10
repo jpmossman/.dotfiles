@@ -1,0 +1,5 @@
+.vscode
+.vscode/*
+*.tar.gz
+sw_version
+.personal*
