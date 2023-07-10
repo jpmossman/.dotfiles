@@ -11,6 +11,7 @@ config.font_size = 12
 config.color_scheme = 'OneHalfDark'
 -- config.window_background_opacity = 0.95
 config.enable_scroll_bar = true
+config.enable_tab_bar = false
 
 -- OS specific options
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
