@@ -68,3 +68,6 @@ echo -ne '\e[5 q'
 # Remove less history file
 export LESSHISTFILE="$XDG_STATE_HOME"/less/history
 
+# Start zsh in a zellij session
+eval "$(zellij setup --generate-auto-start zsh)"
+
