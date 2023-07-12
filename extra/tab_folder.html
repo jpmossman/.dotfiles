@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Tab Folder
+    </title>
+    <link rel="icon" type="image/x-icon" href="data:image/png;base64, iVBORw0KG
+    goAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAClklEQVRYR2NkGGDAOMD2M8AdoJA2U4Pp33+t
+    /wwMTOiOYmT8///PP4YXbFy/z9yZnPeTmo5mVMmdxP7vB9t8BkamCAaG/4RC5DXDv//l9+ZkzKe
+    WIxiV0ma2Aw2rIMXAfwwM+Q9mpU8iRQ8utSAHPAdKSpBo2B9gULndnZW+n0R9GMqBDpgF9BDBoM
+    dmz/u///7HPJyTsR0oCUw65AFQCJCtGWQlUPM7Rob/X/Fa/5/xPdCLq7jeP+++urrhF7Jaih1Ao
+    r/X3ZuVHjyQDmBg/PvP5u7czKMwR9AkBDh5+BjYOXmAJQpGkcLAxSc4V0xOY75emODxBkbGf1R1
+    AI+gKIOcpiEDJw8/4ZhhZDz78+cvb6o5QFBchkFRz5yBkRHT13hcs4wqDuAVFGNQMbYFhjhJloN
+    y/xvKHMDIyCAkIcsgp2XMwMzMQjjYMVU8x3AACxs7g6SSJgOfsAQDEzMzXkOZWVgZQJhs8P//KR
+    QHsLJxMKibOwFTMDfZZpKk8f//NSgOUNA2ZRCWViDJDMoUM/ahOEDfwY8BFAX0A4wFcAeA4tLAK
+    YB+doNsYmQMgjuAk1eAQcvSlb4OYGYygTtAQEyaQdnAiq4O+PPtlzjcAWLyqgyy6gZ0cwCwGv+2
+    5oogL9wBshoGDGJyqnRzADAB3FodIqgOd4CyoTWDgKgUPR2wB+gAV7gDtKzciKvFqOTE/wyM89a
+    ECCYzWrUfesXIxCQqpawJyhdUMp4oY3JXhwhNYQxe9bqLiYm5lCgt1FLEyPCYjfO/zlIv4U+Mnt
+    tus3N94l/IxMIcTqcQuALs3ISvDhO+Bi6LYJ7yX/JQi4WVUwcohL8KJCcUmJn+Mv4H1v7/GZ5oh
+    wqdBDXFYMbQNdKxuX3AHQAA4Rq5XQg+KUYAAAAASUVORK5CYII=">
+</head>
+ 
+<body>
+    <textarea id="inputBoxId"></textarea>
+
+    <script>
+    function get_title() {
+        const url2 = new URL(window.location.toLocaleString());
+        const title = url2.searchParams.get('title');
+        return title ? title : "New Folder";
+    }
+
+    document.title = get_title();
+
+    document.getElementById('inputBoxId')
+        .addEventListener('keypress', function( event ) {
+            if( event.keyCode === 13 ) {
+                window.location.href = window.location.href.split('?')[0] +
+                    '?title=' + this.value;
+            }
+        }, false);
+    </script>
+</body>
+</html>
