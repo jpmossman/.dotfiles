@@ -13,6 +13,9 @@ config.color_scheme = 'OneHalfDark'
 config.enable_scroll_bar = true
 config.enable_tab_bar = false
 
+-- Disable font ligatures
+config.harfbuzz_features = {"calt=0", "clig=0", "liga=0"}
+
 -- OS specific options
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   -- Windows
