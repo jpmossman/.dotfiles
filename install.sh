@@ -60,6 +60,7 @@ install_packages() {
     install_pack_brew() {
         brew update
         # brew install jandedobbeleer/oh-my-posh/oh-my-posh
+        brew install stow
     }
     install_pack_apt() {
         echo "no apt packages"
@@ -79,6 +80,7 @@ install_packages() {
     install_pack_brew
     install_pack_apt
     install_pack_cargo
+    stow_packages
 }
 
 ###############################################################################
