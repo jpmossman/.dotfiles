@@ -32,16 +32,8 @@ install_manual() {
             echo ". $HOME/.cargo/env" >> ~/.bashrc
         fi
     }
-    install_man_ohmyposh() {
-        if ! /usr/local/bin/oh-my-posh --version ; then
-            sudo apt install -y wget
-            sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
-        sudo chmod +x /usr/local/bin/oh-my-posh
-        fi
-    }
     # Install software
     install_man_brew
-    install_man_ohmyposh
     install_man_rust
 }
 
@@ -51,7 +43,7 @@ install_manual() {
 install_packages() {
     install_pack_brew() {
         brew update
-        # brew install jandedobbeleer/oh-my-posh/oh-my-posh
+        brew install jandedobbeleer/oh-my-posh/oh-my-posh
         brew install stow
         brew install neofetch
         brew install onefetch
