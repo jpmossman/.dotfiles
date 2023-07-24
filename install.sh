@@ -53,6 +53,8 @@ install_packages() {
         brew update
         # brew install jandedobbeleer/oh-my-posh/oh-my-posh
         brew install stow
+        brew install neofetch
+        brew install onefetch
     }
     install_pack_apt() {
         sudo apt install -y zsh
