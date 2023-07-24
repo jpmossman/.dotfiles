@@ -3,3 +3,4 @@
 *.tar.gz
 sw_version
 .personal*
+bsp_output_files.tar
