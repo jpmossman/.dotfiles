@@ -1,10 +1,11 @@
 #!/bin/sh
 main() {
-  stow --no-folding git
-  stow --no-folding bash
-  stow --no-folding zsh
-  stow --no-folding nvim
-  stow --no-folding wezterm
+  SHARED_STOW_OPTS="--no-folding --adopt"
+  stow $SHARED_STOW_OPTS git
+  stow $SHARED_STOW_OPTS bash
+  stow $SHARED_STOW_OPTS zsh
+  stow $SHARED_STOW_OPTS nvim
+  stow $SHARED_STOW_OPTS wezterm
 }
 main
 
