@@ -32,13 +32,6 @@ install_manual() {
             echo ". $HOME/.cargo/env" >> ~/.bashrc
         fi
     }
-    install_man_ohmyzsh() {
-        if ! [ -d ~/.cache/oh-my-zsh ] ; then
-            sudo apt install -y zsh
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-            mv $HOME/.zshrc.pre-oh-my-zsh $HOME/.zshrc
-        fi
-    }
     install_man_ohmyposh() {
         if ! /usr/local/bin/oh-my-posh --version ; then
             sudo apt install -y wget
@@ -49,7 +42,6 @@ install_manual() {
     # Install software
     install_man_brew
     install_man_ohmyposh
-    install_man_ohmyzsh
     install_man_rust
 }
 
@@ -63,6 +55,7 @@ install_packages() {
         brew install stow
     }
     install_pack_apt() {
+        sudo apt install -y zsh
         echo "no apt packages"
     }
     install_pack_cargo() {
