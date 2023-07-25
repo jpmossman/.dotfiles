@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+final_space: true
+version: 2
+palette: 
+  "orange": "#E67300"
+  "light-gray": "#707070"
+  "light-green": "#4CDCAD"
+  "light-blue": "#61AFEF"
+  "red": "#FF0000"
+  "pale-yellow": "#F3E5AB"
+  "pale-green": "#98FB98"
+  "pale-blue": "#AFEEEE"
+  "pale-red": "#F4364C"
+blocks:
+# First line, system and session info
+- type: prompt
+  alignment: left
+  newline: true
+  segments:
+  # Box connector
+  - type: text
+    style: plain
+    foreground: "p:light-gray"
+    template: "\u250F\u2501"
+  # Current time in 24-hour format
+  - type: time
+    style: plain
+    foreground: "p:light-gray"
+    properties:
+      time_format: "15:04:05"
+  # User information
+  - type: session
+    style: plain
+    foreground: "p:orange"
+    template: "{{ if .SSHSession }}\uf817 {{ end }}{{ .UserName }} @ {{ .HostName }}"
+  # Emoji of the OS
+  - type: os
+    style: plain
+    foreground: "p:orange"
+  # Name of shell
+  - type: shell
+    style: plain
+    properties:
+      mapped_shell_names:
+        pwsh: PS
+        zsh: ZSH
+        cmd: CMD
+        bash: BASH
+        nu: NU
+# Second line, contextual info
+- type: prompt
+  alignment: left
+  newline: true
+  segments:
+  # Box connector
+  - type: text
+    style: plain
+    foreground: "p:light-gray"
+    template: "\u2523\u2501"
+  # Python virtual environment
+  - type: python
+    style: plain
+    foreground: "p:light-green"
+  # Git info
+  - type: git
+    style: plain
+    foreground: "p:light-gray"
+    fetch_bare_info: true
+    properties:
+      fetch_status: true
+    template: " [ {{if lt 0 .Behind}}<p:red>!</> {{end}}<p:light-green>{{.HEAD}}</> {{if .Working.Changed}}+ {{if lt 0 .Working.Deleted}}<p:pale-red>{{.Working.Deleted}}D </>{{end}}{{if lt 0 .Working.Added}}<p:pale-blue>{{.Working.Added}}A </>{{end}}{{if lt 0 .Working.Modified}}<p:pale-yellow>{{.Working.Modified}}M </>{{end}}{{if lt 0 .Working.Untracked}}<p:pale-green>{{.Working.Untracked}}U </>{{end}}{{end}}{{if .Staging.Changed}}( {{if lt 0 .Staging.Deleted}}<p:pale-red>{{.Staging.Deleted}}D </>{{end}}{{if lt 0 .Staging.Added}}<p:pale-blue>{{.Staging.Added}}A </>{{end}}{{if lt 0 .Staging.Modified}}<p:pale-yellow>{{.Staging.Modified}}M </>{{end}}{{if lt 0 .Staging.Untracked}}<p:pale-green>{{.Staging.Untracked}}U </>{{end}}){{end}}{{if lt 0 .Ahead}}<p:red>*</> {{end}}]"
+  # Full path
+  - type: path
+    style: plain
+    foreground: "p:light-blue"
+    properties:
+      style: full
+      max_depth: 1
+      mapped_locations_enabled: true
+# Third line, minimal, no info, just command prompt
+- type: prompt
+  alignment: left
+  newline: true
+  segments:
+  - type: exit
+    style: plain
+    template: "<p:light-gray>\u2517\u2501</> {{if gt .Code 0}}<p:red>{{end}}{{ if .Root }}#{{ else }}${{ end }}</>"
+    properties:
+      always_enabled: true
+# For when commands span multiple lines
+secondary_prompt:
+  template: "   > "
