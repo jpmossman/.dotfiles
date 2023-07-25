@@ -7,11 +7,6 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory
 
-# Set prompt engine
-eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/julia.yaml)"
-# export STARSHIP_CONFIG=~/.config/starship/julia.toml
-# eval "$(starship init zsh)"
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -48,3 +43,8 @@ export LESSHISTFILE="$XDG_STATE_HOME"/less/history
 
 # Start zsh in a zellij session
 eval "$(zellij setup --generate-auto-start zsh)"
+
+# Set prompt engine
+eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/julia.yaml)"
+# export STARSHIP_CONFIG=~/.config/starship/julia.toml
+# eval "$(starship init zsh)"
