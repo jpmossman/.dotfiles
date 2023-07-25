@@ -25,6 +25,7 @@ fi
 # Add stuff to path
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
+eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH=$PATH:~/scripts
 export PATH=$PATH:~/.local/share/bob/nvim-bin
 . "$HOME/.cargo/env"
@@ -47,4 +48,3 @@ export LESSHISTFILE="$XDG_STATE_HOME"/less/history
 
 # Start zsh in a zellij session
 eval "$(zellij setup --generate-auto-start zsh)"
-
