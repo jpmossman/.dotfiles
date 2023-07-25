@@ -47,6 +47,7 @@ install_packages() {
         brew install stow
         brew install neofetch
         brew install onefetch
+        brew install zellij
     }
     install_pack_apt() {
         sudo apt install -y zsh
