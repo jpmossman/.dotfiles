@@ -48,9 +48,10 @@ install_packages() {
         brew install neofetch
         brew install onefetch
         brew install zellij
+        brew install ripgrep
     }
     install_pack_apt() {
-        sudo apt install -y zsh
+        # sudo apt install -y zsh
         echo "no apt packages"
     }
     install_pack_cargo() {

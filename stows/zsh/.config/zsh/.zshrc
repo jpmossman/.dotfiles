@@ -1,6 +1,9 @@
 # dotfile directory for zsh
 export ZDOTDIR="$HOME/.config/zsh"
-
+# TODO: Find autocomplete alternative to oh-my-zsh
+# export ZSH="$HOME/.cache/oh-my-zsh"
+export ZSH=$ZDOTDIR/ohmyzsh
+source $ZDOTDIR/ohmyzsh/oh-my-zsh.sh
 # history settings
 HISTFILE="$ZDOTDIR/.zsh_history"
 HISTSIZE=1000
