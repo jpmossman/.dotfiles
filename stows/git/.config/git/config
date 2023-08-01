@@ -7,5 +7,6 @@
 	autocrlf = input
 [alias]
 	tree = log --graph --oneline
+	smupdate = submodule update --init --recursive
 [init]
 	defaultBranch = main
