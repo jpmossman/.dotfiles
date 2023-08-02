@@ -8,5 +8,6 @@
 [alias]
 	tree = log --graph --oneline
 	smupdate = submodule update --init --recursive
+	fs = ! git fetch && git status
 [init]
 	defaultBranch = main
