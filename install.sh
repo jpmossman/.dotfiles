@@ -49,6 +49,11 @@ install_packages() {
         brew install onefetch
         brew install zellij
         brew install ripgrep
+
+        # Add fonts
+        brew tap homebrew/cask-fonts
+        brew install --cask font-hack-nerd-font
+        brew install --cask font-jetbrains-mono-nerd-font
     }
     install_pack_apt() {
         # sudo apt install -y zsh
