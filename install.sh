@@ -6,6 +6,7 @@
 main() {
     install_manual
     install_packages
+    stow_packages
 }
 
 ###############################################################################
@@ -74,7 +75,6 @@ install_packages() {
     install_pack_brew
     install_pack_apt
     install_pack_cargo
-    stow_packages
 }
 
 ###############################################################################
