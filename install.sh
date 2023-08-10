@@ -22,14 +22,17 @@ stow_packages() {
 install_manual() {
     # Define install functions
     install_man_brew() {
+        # TODO: Install correct version for OS
         if ! brew --version ; then
             NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            # TODO: This next line should not be necessary, just in .zshrc
             echo "export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH" >> ~/.bashrc
         fi
     }
     install_man_rust() {
         if ! rustup --version ; then
             curl https://sh.rustup.rs -sSf | sh -s -- -q -y
+            # TODO: This next line should not be necessary, just in .zshrc
             echo ". $HOME/.cargo/env" >> ~/.bashrc
         fi
     }
@@ -50,6 +53,13 @@ install_packages() {
         brew install onefetch
         brew install zellij
         brew install ripgrep
+
+        # Docker on Mac
+        if is_mac ; then
+            brew install colima
+            brew install docker docker-compose
+            # TODO: Link docker-compose to be used as a plugin for docker
+        fi
 
         # Add fonts
         brew tap homebrew/cask-fonts
@@ -76,6 +86,23 @@ install_packages() {
     install_pack_apt
     install_pack_cargo
 }
+
+###############################################################################
+# Helper functions
+###############################################################################
+# TODO: Verify that these work as intended
+is_mac () {
+    return `uname` = "Darwin"
+}
+
+is_linux() {
+    return `uname` = "Linux"
+}
+
+is_wsl() {
+    return `uname` = "WSL"
+}
+
 
 ###############################################################################
 # main
