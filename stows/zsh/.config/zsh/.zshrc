@@ -22,8 +22,17 @@ fi
 
 # Add stuff to path
 export PATH=$PATH:~/.local/bin
-export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ `uname` == "Darwin" ] ; then
+  if [ `uname -m` == "arm64" ] ; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+  if [ `uname -m` == "x86_64" ] ; then
+    eval "$(/usr/local/homebrew/bin/brew shellenv)"
+  fi
+fi
+if [ `uname` == "Linux" ] ;  then
+  export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
+fi
 export PATH=$PATH:~/scripts
 export PATH=$PATH:~/.local/share/bob/nvim-bin
 . "$HOME/.cargo/env"
