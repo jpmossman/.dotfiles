@@ -22,15 +22,15 @@ fi
 
 # Add stuff to path
 export PATH=$PATH:~/.local/bin
-if [ `uname` == "Darwin" ] ; then
-  if [ `uname -m` == "arm64" ] ; then
+if [ `uname` = "Darwin" ] ; then
+  if [ `uname -m` = "arm64" ] ; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
-  if [ `uname -m` == "x86_64" ] ; then
+  if [ `uname -m` = "x86_64" ] ; then
     eval "$(/usr/local/homebrew/bin/brew shellenv)"
   fi
 fi
-if [ `uname` == "Linux" ] ;  then
+if [ `uname` = "Linux" ] ;  then
   export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 fi
 export PATH=$PATH:~/scripts
