@@ -54,7 +54,7 @@ echo -ne '\e[5 q'
 export LESSHISTFILE="$XDG_STATE_HOME"/less/history
 
 # Start zsh in a zellij session
-eval "$(zellij setup --generate-auto-start zsh)"
+# eval "$(zellij setup --generate-auto-start zsh)"
 
 # Set prompt engine
 eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/julia.yaml)"
