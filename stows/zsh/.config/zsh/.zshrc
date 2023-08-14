@@ -46,6 +46,12 @@ alias ll="ls -l"
 alias lla="ls -lah"
 alias cat="bat"
 alias lTree="exa --icons -T --git-ignore -I .git"
+if [ `uname` = "Darwin" ] ; then
+  alias wezterm="~/Desktop/MyApplications/WezTerm.app/Contents/MacOS/wezterm"
+  alias imgcat="wezterm imgcat"
+  alias orb="~/Desktop/MyApplications/Orbstack.app/Contents/MacOS/bin/orb"
+  alias orbctl="~/Desktop/MyApplications/Orbstack.app/Contents/MacOS/bin/orbctl"
+fi
 
 # Use beam instead of block cursor
 echo -ne '\e[5 q'
@@ -60,3 +66,6 @@ export LESSHISTFILE="$XDG_STATE_HOME"/less/history
 eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/julia.yaml)"
 # export STARSHIP_CONFIG=~/.config/starship/julia.toml
 # eval "$(starship init zsh)"
+
+# Set default docker architecture
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
