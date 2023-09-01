@@ -23,14 +23,14 @@ install_manual() {
     # Define install functions
     install_man_brew() {
         # TODO: Install correct version for OS
-        if ! brew --version ; then
+        if ! which brew ; then
             NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
             # TODO: This next line should not be necessary, just in .zshrc
             echo "export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH" >> ~/.bashrc
         fi
     }
     install_man_rust() {
-        if ! rustup --version ; then
+        if ! which rustup ; then
             curl https://sh.rustup.rs -sSf | sh -s -- -q -y
             # TODO: This next line should not be necessary, just in .zshrc
             echo ". $HOME/.cargo/env" >> ~/.bashrc
@@ -92,15 +92,18 @@ install_packages() {
 ###############################################################################
 # TODO: Verify that these work as intended
 is_mac () {
-    return `uname` = "Darwin"
+    return false
+    # return `uname` = "Darwin"
 }
 
 is_linux() {
-    return `uname` = "Linux"
+    return true
+    # return `uname` = "Linux"
 }
 
 is_wsl() {
-    return `uname` = "WSL"
+    return true
+    # return `uname` = "WSL"
 }
 
 
