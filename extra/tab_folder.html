@@ -18,12 +18,27 @@
     ECCYzWrUfesXIxCQqpawJyhdUMp4oY3JXhwhNYQxe9bqLiYm5lCgt1FLEyPCYjfO/zlIv4U+Mnt
     tus3N94l/IxMIcTqcQuALs3ISvDhO+Bi6LYJ7yX/JQi4WVUwcohL8KJCcUmJn+Mv4H1v7/GZ5oh
     wqdBDXFYMbQNdKxuX3AHQAA4Rq5XQg+KUYAAAAASUVORK5CYII=">
+    <style>
+        body {
+            padding: 25px;
+            background-color: powderblue;
+            color: black;
+            font-size: 25px;
+        }
+        .dark-mode {
+            background-color: darkslategray;
+        }
+    </style>
 </head>
  
 <body>
     <textarea id="inputBoxId"></textarea>
 
     <script>
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.toggle("dark-mode");
+    }
+    
     function get_title() {
         const url2 = new URL(window.location.toLocaleString());
         const title = url2.searchParams.get('title');
