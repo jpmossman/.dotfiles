@@ -67,6 +67,7 @@ install_packages() {
         brew install --cask font-jetbrains-mono-nerd-font
     }
     install_pack_apt() {
+        sudo apt update
         # sudo apt install -y zsh
         echo "no apt packages"
     }
