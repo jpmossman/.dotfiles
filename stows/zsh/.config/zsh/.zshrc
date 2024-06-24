@@ -52,6 +52,7 @@ if [ `uname` = "Darwin" ] ; then
   alias orb="~/Desktop/MyApplications/Orbstack.app/Contents/MacOS/bin/orb"
   alias orbctl="~/Desktop/MyApplications/Orbstack.app/Contents/MacOS/bin/orbctl"
 fi
+alias timestamp="date +%y%m%d_%H%M%S"
 
 # Use beam instead of block cursor
 echo -ne '\e[5 q'
