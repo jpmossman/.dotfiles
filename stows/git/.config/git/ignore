@@ -4,3 +4,5 @@
 sw_version
 .personal*
 bsp_output_files.tar
+.DS_Store
+Maskfile.md
