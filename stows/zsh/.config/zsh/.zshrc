@@ -35,6 +35,7 @@ if [ `uname` = "Linux" ] ;  then
 fi
 export PATH=$PATH:~/scripts
 export PATH=$PATH:~/.local/share/bob/nvim-bin
+export PATH=$PATH:~/go/bin
 . "$HOME/.cargo/env"
 
 # Add personal aliases
@@ -51,6 +52,7 @@ if [ `uname` = "Darwin" ] ; then
   alias imgcat="wezterm imgcat"
   alias orb="~/Desktop/MyApplications/Orbstack.app/Contents/MacOS/bin/orb"
   alias orbctl="~/Desktop/MyApplications/Orbstack.app/Contents/MacOS/bin/orbctl"
+  alias date="gdate"
 fi
 alias timestamp="date +%y%m%d_%H%M%S"
 
@@ -70,3 +72,35 @@ eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/julia.yaml)"
 
 # Set default docker architecture
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
+
+# Jira cli stuff
+export JIRA_API_TOKEN=$(cat "$HOME/.jira-credentials")
+export JIRA_AUTH_TYPE=basic
+
+
+# Auto completions
+_uuu_autocomplete()
+{
+  COMPREPLY=($(/opt/homebrew/Cellar/uuu/1.5.182/bin/uuu $1 $2 $3))
+}
+complete -o nospace -F _uuu_autocomplete  uuu
+
+export GITHUB_TOKEN=$(cat ~/.git-credentials)
+export BARTIB_FILE="$HOME/bartib.txt"
+
+check_uptime() {
+  local BOOTTIME=$(sysctl -n kern.boottime | awk '{print $4}' | sed 's/,//g')
+  local NOW=$(date +%s)
+  local DIFF=$((NOW - BOOTTIME))
+  local DIFF_S=$((DIFF % 60))
+  local DIFF_M=$((DIFF / 60 % 60))
+  local DIFF_H=$((DIFF / 3600 % 24))
+  local DIFF_D=$((DIFF / 86400))
+  local MAX_DAYS=3
+  local MAX_S=$((3*24*60*60))
+  echo "Uptime: ${DIFF_D}d ${DIFF_H}h ${DIFF_M}m ${DIFF_S}s (${DIFF}s total)"
+  if (( DIFF > MAX_S )); then
+    echo "System uptime is greater than ${MAX_DAYS} days, please reboot or I'll die"
+  fi
+}
+check_uptime
