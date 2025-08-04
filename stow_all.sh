@@ -9,4 +9,3 @@ main() {
   stow $SHARED_STOW_OPTS oh-my-posh
 }
 main
-
