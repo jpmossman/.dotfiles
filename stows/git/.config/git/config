@@ -2,13 +2,15 @@
 	name = JP Mossman
 	email = jp.mossman@chamberlain.com
 [credential]
-	helper = store
+	helper = "!f() { echo \"username=x-access-token\"; echo \"password=$GITHUB_TOKEN\"; }; f"
 [core]
 	autocrlf = input
 [alias]
 	tree = log --graph --oneline
 	smupdate = submodule update --init --recursive
 	fs = ! git fetch && git status
+	prdiff = diff --merge-base origin/main
+	changes-between = log --merges --first-parent --date=short --pretty=format:'%h - %an, %s'
 [init]
 	defaultBranch = main
 [filter "lfs"]
@@ -18,3 +20,5 @@
 	required = true
 [diff]
 	ignoreSubmodules = dirty
+[pager]
+	branch = false
