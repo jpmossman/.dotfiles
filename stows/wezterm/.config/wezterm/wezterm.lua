@@ -7,7 +7,7 @@ end
 
 -- Config choices
 config.font = wezterm.font 'JetBrains Mono'
-config.font_size = 12
+config.font_size = 10
 config.color_scheme = 'OneHalfDark'
 -- config.window_background_opacity = 0.95
 config.enable_scroll_bar = true
