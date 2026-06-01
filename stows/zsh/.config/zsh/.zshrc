@@ -14,14 +14,15 @@ setopt appendhistory
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='code'
+# fi
+export EDITOR="nvim"
 
 # Add stuff to path
-export PATH=$PATH:~/.local/bin
+export "PATH=$PATH:$HOME/.local/bin"
 if [ `uname` = "Darwin" ] ; then
   if [ `uname -m` = "arm64" ] ; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -31,11 +32,21 @@ if [ `uname` = "Darwin" ] ; then
   fi
 fi
 if [ `uname` = "Linux" ] ;  then
-  export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
+  export "PATH=$PATH:/home/linuxbrew/.linuxbrew/bin"
 fi
-export PATH=$PATH:~/scripts
-export PATH=$PATH:~/.local/share/bob/nvim-bin
-export PATH=$PATH:~/go/bin
+export PATH="$PATH:$HOME/scripts"
+export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/Desktop/MyApplications/Cursor.app/Contents/MacOS"
+export PATH="$PATH:$HOME/Desktop/MyApplications/Ollama.app/Contents/MacOS"
+export PATH="$PATH:$HOME/scripts/arm-gnu-toolchain/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/bin"
+# export PAHT="$PATH:$HOME/Desktop/MyApplications/Ollama.app/Contents/MacOS/"
+
+# function path_append() {
+#   export PATH="$PATH:$1"
+# }
+# path_append "$HOME/scripts/arm-gnu-toolchain/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/bin"
+
 . "$HOME/.cargo/env"
 
 # Add personal aliases
@@ -45,14 +56,10 @@ alias ls="lsd"
 alias la="ls -lAh"
 alias ll="ls -l"
 alias lla="ls -lah"
-alias cat="bat"
+alias cat="bat --paging=never"
 alias lTree="exa --icons -T --git-ignore -I .git"
 if [ `uname` = "Darwin" ] ; then
-  alias wezterm="~/Desktop/MyApplications/WezTerm.app/Contents/MacOS/wezterm"
   alias imgcat="wezterm imgcat"
-  alias orb="~/Desktop/MyApplications/Orbstack.app/Contents/MacOS/bin/orb"
-  alias orbctl="~/Desktop/MyApplications/Orbstack.app/Contents/MacOS/bin/orbctl"
-  alias date="gdate"
 fi
 alias timestamp="date +%y%m%d_%H%M%S"
 
@@ -85,8 +92,7 @@ _uuu_autocomplete()
 }
 complete -o nospace -F _uuu_autocomplete  uuu
 
-export GITHUB_TOKEN=$(cat ~/.git-credentials)
-export BARTIB_FILE="$HOME/bartib.txt"
+export BARTIB_FILE="$HOME/notes/bartib.txt"
 
 check_uptime() {
   local BOOTTIME=$(sysctl -n kern.boottime | awk '{print $4}' | sed 's/,//g')
@@ -104,3 +110,28 @@ check_uptime() {
   fi
 }
 check_uptime
+export PATH="$HOMEBREW_PREFIX/opt/uutils-coreutils/libexec/uubin:$PATH"
+
+_bartib_completions()
+{
+	local CWORD=${COMP_WORDS[COMP_CWORD]}
+	ALL_PROJECTS=`bartib projects`
+
+	local IFS=$'\n'
+	CANDIATE_PROJECTS=($(compgen -W "${ALL_PROJECTS[*]}" -- "$CWORD"))
+
+	if [ ${#CANDIATE_PROJECTS[*]} -eq 0 ]; then
+		COMPREPLY=()
+	else
+		COMPREPLY=($(printf "\"%s\"\n" "${CANDIATE_PROJECTS[@]}"))
+	fi
+}
+
+complete -F _bartib_completions bartib
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+alias source_creds="source ~/.dotfiles/creds.env"
+
+source "$HOME/.zshenv"
+
+source "$HOME/scripts/shell-logger.zsh"
