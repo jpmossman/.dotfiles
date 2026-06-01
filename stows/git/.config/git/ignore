@@ -6,3 +6,5 @@ sw_version
 bsp_output_files.tar
 .DS_Store
 Maskfile.md
+
+**/.claude/settings.local.json
