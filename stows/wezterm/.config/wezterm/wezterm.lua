@@ -8,7 +8,9 @@ end
 -- Config choices
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
-config.color_scheme = 'OneHalfDark'
+config.color_scheme = 'Operator Mono Dark'
+-- config.color_scheme = 'JWR dark (terminal.sexy)'
+-- config.color_scheme = 'OneHalfDark'
 -- config.window_background_opacity = 0.95
 config.enable_scroll_bar = true
 -- config.enable_tab_bar = false
