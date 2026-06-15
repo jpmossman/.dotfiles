@@ -80,11 +80,6 @@ eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/julia.yaml)"
 # Set default docker architecture
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-# Jira cli stuff
-export JIRA_API_TOKEN=$(cat "$HOME/.jira-credentials")
-export JIRA_AUTH_TYPE=basic
-
-
 # Auto completions
 _uuu_autocomplete()
 {
