@@ -161,6 +161,22 @@ done
 say "mise bootstrap (packages, repos, dotfiles, tools)"
 mise bootstrap --yes
 
-say "done: open a new terminal (login shell: zsh)."
+# --- 9. login shell ------------------------------------------------------------
+# Not in the mise config: chsh wants the account password, which headless VMs
+# often lack, and a failed phase would stop bootstrap before the tools.
+ZSH_PATH=/bin/zsh
+current=$( (getent passwd "$USER" 2>/dev/null || dscl . -read "/Users/$USER" UserShell 2>/dev/null) | awk -F'[: ]' '{print $NF}')
+if [ "$current" != "$ZSH_PATH" ] && [ -x "$ZSH_PATH" ]; then
+  if sudo -n true 2>/dev/null; then
+    sudo chsh -s "$ZSH_PATH" "$USER" && say "login shell set to $ZSH_PATH"
+  elif has_tty; then
+    say "setting login shell to $ZSH_PATH (asks for your password)"
+    chsh -s "$ZSH_PATH" </dev/tty || say "chsh failed; run: chsh -s $ZSH_PATH"
+  else
+    say "run \`chsh -s $ZSH_PATH\` to make zsh your login shell"
+  fi
+fi
+
+say "done: open a new terminal."
 if [ -d "$BACKUP_DIR" ]; then say "replaced files were saved in $BACKUP_DIR"; fi
 say "change modules later: edit $CONFIG_DIR/miserc.toml, then \`mise bootstrap\`"

@@ -25,8 +25,8 @@ It asks for a profile. To skip the prompt, pass one: `… | sh -s -- work-headle
 4. for work profiles, logs in with `gh` (or uses `$GITHUB_TOKEN`) and clones the private work
    layer into `conf.d/work/`; its URL comes from `$WORK_REPO` or a prompt
 5. moves any real files that a dotfile link would replace to `~/.dotfiles-backup/<timestamp>/`
-6. runs `mise bootstrap`, which applies, in order: host packages, git repos, dotfiles, tools,
-   login shell
+6. runs `mise bootstrap`, which applies, in order: host packages, git repos, dotfiles, tools
+7. sets zsh as the login shell (via sudo if passwordless, otherwise `chsh` prompts)
 
 Re-running it is safe.
 

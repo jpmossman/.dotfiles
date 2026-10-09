@@ -28,7 +28,6 @@ starship = "1.26.0"
 KANBAN_FILE = "{{ env.HOME }}/.local/share/kanban/boards.json"
 BARTIB_FILE = "{{ env.HOME }}/notes/bartib.txt"
 
-[bootstrap.user]
-# /bin/zsh exists on macOS and on usrmerge distros (Ubuntu/Debian); apt:zsh in
-# host-packages/ installs it on Linux before this runs.
-login_shell = "/bin/zsh"
+# No [bootstrap.user] login_shell: its `chsh` needs the account password, which
+# headless VMs often don't have, and a failure there aborts bootstrap before
+# the tools phase. install.sh sets the login shell after bootstrap instead.
