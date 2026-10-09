@@ -14,3 +14,4 @@
 # fonts are the one cask kind that also works on Linux
 "brew-cask:font-hack-nerd-font" = { os = ["macos", "linux"] }
 "brew-cask:font-jetbrains-mono-nerd-font" = { os = ["macos", "linux"] }
+"brew-cask:obsidian" = "latest"
