@@ -17,4 +17,6 @@ done
 
 # GitHub token goes over stdin so it never appears in a process list or log.
 gh auth token | orb -m "$MACHINE" bash /src/dotfiles/test/orb/in-vm.sh "$PROFILE" >"$LOGS/$PROFILE.log" 2>&1
-echo "$PROFILE: $(grep -c 'rc=0' "$LOGS/$PROFILE.log") ok, $(grep -cE 'rc=[1-9]' "$LOGS/$PROFILE.log") failed  ($LOGS/$PROFILE.log)"
+summary=$(sed -n '/^===== SUMMARY/,$p' "$LOGS/$PROFILE.log")
+echo "$PROFILE: $(grep -c ' rc=0 ' <<<"$summary") ok, $(grep -cE ' rc=[1-9]' <<<"$summary") failed  ($LOGS/$PROFILE.log)"
+grep -E ' rc=[1-9]' <<<"$summary" || true

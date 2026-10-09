@@ -42,7 +42,7 @@ step miserc       cat "$HOME/.config/mise/miserc.toml"
 step modules      sh -c 'cd ~ && ~/.local/bin/mise config ls | awk "{print \$1}"'
 step dot-status   sh -c 'cd ~ && ~/.local/bin/mise dotfiles status | grep -v "^ "'
 step missing      sh -c 'cd ~ && ~/.local/bin/mise ls --missing'
-step git-identity sh -c "git config --get user.email | tee /dev/stderr | grep -q '$expect_email'"
+step git-identity sh -c "e=\$(git config --get user.email); echo \"\$e\"; case \$e in *@$expect_email) ;; *) exit 1 ;; esac"
 step tools        z 'rc=0; for t in '"$expect_tools"'; do p=$(command -v $t) && echo "$t  $p" || { echo "$t  MISSING"; rc=1; }; done; exit $rc'
 step no-extras    z 'case '"$PROFILE"' in personal) [ ! -e ~/.config/mise/conf.d/work ] ;; work-headless) [ ! -e ~/.config/wezterm ] ;; *) true ;; esac'
 step shell        z 'echo "login shell: $(getent passwd $USER | cut -d: -f7)"; type source_creds 2>/dev/null || echo "no source_creds"'
