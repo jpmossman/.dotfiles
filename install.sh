@@ -1,7 +1,7 @@
 #!/bin/sh
 # Set up a machine from these dotfiles.
 #
-#   curl -fsSL https://raw.githubusercontent.com/jpmossman/dotfiles/main/install.sh | sh
+#   curl -fsSL https://raw.githubusercontent.com/jpmossman/.dotfiles/main/install.sh | sh
 #   curl -fsSL …/install.sh | sh -s -- work-headless
 #
 # Profiles (each is a list of mise config modules, see config.toml):
@@ -20,7 +20,7 @@
 # by a dotfile link are moved to ~/.dotfiles-backup/<timestamp>/ first.
 set -eu
 
-DOTFILES_REPO=${DOTFILES_REPO:-https://github.com/jpmossman/dotfiles.git}
+DOTFILES_REPO=${DOTFILES_REPO:-https://github.com/jpmossman/.dotfiles.git}
 MISE_VERSION=${MISE_VERSION:-v2026.9.15}
 CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/mise
 PROFILE=${1:-${DOTFILES_PROFILE:-}}

@@ -6,7 +6,7 @@ host packages and dotfile links) as one [mise](https://mise.jdx.dev) configurati
 ## New machine
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/jpmossman/dotfiles/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/jpmossman/.dotfiles/main/install.sh | sh
 ```
 
 It asks for a profile. To skip the prompt, pass one: `… | sh -s -- work-headless`.
