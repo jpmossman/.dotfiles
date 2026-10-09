@@ -20,7 +20,7 @@ It asks for a profile. To skip the prompt, pass one: `… | sh -s -- work-headle
 `install.sh` does this:
 
 1. installs git/curl if missing (Xcode CLT on macOS, apt on Linux) and installs mise
-2. clones this repo to `~/.config/mise`
+2. clones this repo to `~/.config/mise`, and links `~/.dotfiles` to it if that path is free
 3. writes the profile's modules to `~/.config/mise/miserc.toml` (machine-local, untracked)
 4. for work profiles, logs in with `gh` (or uses `$GITHUB_TOKEN`) and clones the private work
    layer into `conf.d/work/`; its URL comes from `$WORK_REPO` or a prompt

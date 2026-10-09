@@ -100,6 +100,22 @@ else
   git clone -q "$DOTFILES_REPO" "$CONFIG_DIR"
 fi
 
+# Convenience path to the checkout. Never touches an existing ~/.dotfiles: on
+# machines still running the old stow setup, that is the live source of every
+# dotfile link.
+link_dotfiles_alias() {
+  alias_path=$HOME/.dotfiles
+  if [ -L "$alias_path" ] && [ "$(readlink "$alias_path")" = "$CONFIG_DIR" ]; then
+    return 0
+  elif [ -e "$alias_path" ] || [ -L "$alias_path" ]; then
+    say "leaving existing $alias_path alone (the checkout is $CONFIG_DIR)"
+  else
+    ln -s "$CONFIG_DIR" "$alias_path"
+    say "linked $alias_path -> $CONFIG_DIR"
+  fi
+}
+link_dotfiles_alias
+
 # --- 5. record the profile (machine-local, gitignored) -------------------------
 {
   echo "# Written by install.sh ($PROFILE). Edit, then run \`mise bootstrap\`."

@@ -40,6 +40,7 @@ fi
 step install      sh -c 'cat /src/dotfiles/install.sh | sh -s -- "$1"' _ "$PROFILE"
 step miserc       cat "$HOME/.config/mise/miserc.toml"
 step modules      sh -c 'cd ~ && ~/.local/bin/mise config ls | awk "{print \$1}"'
+step alias        sh -c '[ "$(readlink ~/.dotfiles)" = "$HOME/.config/mise" ]'
 step dot-status   sh -c 'cd ~ && ~/.local/bin/mise dotfiles status | grep -v "^ "'
 step missing      sh -c 'cd ~ && ~/.local/bin/mise ls --missing'
 step git-identity sh -c "e=\$(git config --get user.email); echo \"\$e\"; case \$e in *@$expect_email) ;; *) exit 1 ;; esac"
