@@ -1,0 +1,10 @@
+# Former `go install` binaries in ~/go/bin (module versions as installed).
+# shfmt/yamlfmt went to cli/ as prebuilt binaries.
+
+[tools]
+"go:golang.org/x/tools/gopls" = "0.22.0"
+"go:honnef.co/go/tools/cmd/staticcheck" = "0.6.1"
+"go:github.com/jandelgado/gcov2lcov" = "1.1.1"
+"go:github.com/google/go-licenses/v2" = "2.0.1"
+"go:github.com/wailsapp/wails/v2/cmd/wails" = "2.12.0"
+golangci-lint = "2.12.2"

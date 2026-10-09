@@ -23,31 +23,25 @@ export EDITOR="nvim"
 
 # Add stuff to path
 export "PATH=$PATH:$HOME/.local/bin"
-if [ `uname` = "Darwin" ] ; then
-  if [ `uname -m` = "arm64" ] ; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+# Homebrew prefix. mise installs [bootstrap.packages] brew formulae into it
+# without installing `brew` itself, so put the prefix on PATH either way.
+for prefix in /opt/homebrew /usr/local/homebrew /home/linuxbrew/.linuxbrew; do
+  if [ -x "$prefix/bin/brew" ]; then
+    eval "$("$prefix/bin/brew" shellenv)"
+    break
+  elif [ -d "$prefix/bin" ]; then
+    export HOMEBREW_PREFIX="$prefix" PATH="$prefix/bin:$prefix/sbin:$PATH"
+    break
   fi
-  if [ `uname -m` = "x86_64" ] ; then
-    eval "$(/usr/local/homebrew/bin/brew shellenv)"
-  fi
-fi
-if [ `uname` = "Linux" ] ;  then
-  export "PATH=$PATH:/home/linuxbrew/.linuxbrew/bin"
-fi
+done
 export PATH="$PATH:$HOME/scripts"
-export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
-export PATH="$PATH:$HOME/go/bin"
 export PATH="$PATH:$HOME/Desktop/MyApplications/Cursor.app/Contents/MacOS"
 export PATH="$PATH:$HOME/Desktop/MyApplications/Ollama.app/Contents/MacOS"
-export PATH="$PATH:$HOME/scripts/arm-gnu-toolchain/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/bin"
-# export PAHT="$PATH:$HOME/Desktop/MyApplications/Ollama.app/Contents/MacOS/"
 
-# function path_append() {
-#   export PATH="$PATH:$1"
-# }
-# path_append "$HOME/scripts/arm-gnu-toolchain/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/bin"
-
-. "$HOME/.cargo/env"
+# mise: puts every [tools] entry on PATH and loads [env]. Replaces the bob,
+# ~/go/bin, arm-gnu-toolchain, llvm and ~/.cargo/env PATH lines that were here.
+# install.sh puts mise in ~/.local/bin (added above).
+eval "$(mise activate zsh)"
 
 # Add personal aliases
 alias dmenu='rofi -dmenu'
@@ -57,7 +51,7 @@ alias la="ls -lAh"
 alias ll="ls -l"
 alias lla="ls -lah"
 alias cat="bat --paging=never"
-alias lTree="exa --icons -T --git-ignore -I .git"
+alias lTree="eza --icons -T --git-ignore -I .git"
 if [ `uname` = "Darwin" ] ; then
   alias imgcat="wezterm imgcat"
 fi
@@ -74,18 +68,20 @@ export LESSHISTFILE="$XDG_STATE_HOME"/less/history
 
 # Set prompt engine
 eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/julia.yaml)"
-# export STARSHIP_CONFIG=~/.config/starship/julia.toml
+export STARSHIP_CONFIG=~/.config/starship/julia.toml
 # eval "$(starship init zsh)"
 
 # Set default docker architecture
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Auto completions
-_uuu_autocomplete()
-{
-  COMPREPLY=($(/opt/homebrew/Cellar/uuu/1.5.182/bin/uuu $1 $2 $3))
-}
-complete -o nospace -F _uuu_autocomplete  uuu
+if command -v uuu >/dev/null; then
+  _uuu_autocomplete()
+  {
+    COMPREPLY=($(uuu $1 $2 $3))
+  }
+  complete -o nospace -F _uuu_autocomplete  uuu
+fi
 
 export BARTIB_FILE="$HOME/notes/bartib.txt"
 
@@ -104,8 +100,8 @@ check_uptime() {
     echo "System uptime is greater than ${MAX_DAYS} days, please reboot or I'll die"
   fi
 }
-check_uptime
-export PATH="$HOMEBREW_PREFIX/opt/uutils-coreutils/libexec/uubin:$PATH"
+[ `uname` = "Darwin" ] && check_uptime
+[ -n "$HOMEBREW_PREFIX" ] && export PATH="$HOMEBREW_PREFIX/opt/uutils-coreutils/libexec/uubin:$PATH"
 
 _bartib_completions()
 {
@@ -123,10 +119,11 @@ _bartib_completions()
 }
 
 complete -F _bartib_completions bartib
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
-alias source_creds="source ~/.dotfiles/creds.env"
+# Profile drop-ins: modules link extra snippets here (e.g. the work layer's
+# `source_creds` alias). Nothing is required to exist.
+for f in $ZDOTDIR/conf.d/*.zsh(N); do source "$f"; done
 
 source "$HOME/.zshenv"
 
-source "$HOME/scripts/shell-logger.zsh"
+if [ -f "$HOME/scripts/shell-logger.zsh" ]; then source "$HOME/scripts/shell-logger.zsh"; fi

@@ -1,0 +1,10 @@
+# Former `uv tool install` CLIs. pipx: = isolated venv per tool, installed via uv.
+
+[tools]
+"pipx:black" = "25.1.0"
+"pipx:cmakelang" = "0.6.13"
+"pipx:mdformat" = "1.0.0"
+"pipx:pytest" = "9.0.2"
+# jrnl 4.2.1 declares requires-python < 3.14; give its venv its own interpreter
+"pipx:jrnl" = { version = "4.2.1", uvx_args = "--python 3.13" }
+ruff = "0.13.1"

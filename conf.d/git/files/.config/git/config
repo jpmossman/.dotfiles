@@ -1,6 +1,7 @@
-[user]
-	name = JP Mossman
-	email = jp.mossman@chamberlain.com
+# Identity comes from the active profile: the `personal` or `work` module links
+# ~/.config/git/identity. Nothing machine- or employer-specific lives here.
+[include]
+	path = ~/.config/git/identity
 [credential]
 	helper = "!f() { echo \"username=x-access-token\"; echo \"password=$GITHUB_TOKEN\"; }; f"
 [core]
@@ -22,3 +23,9 @@
 	ignoreSubmodules = dirty
 [pager]
 	branch = false
+[credential "https://github.com"]
+	helper = 
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !gh auth git-credential

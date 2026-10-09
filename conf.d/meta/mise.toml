@@ -1,0 +1,7 @@
+# Housekeeping for this config itself. File tasks live in ./tasks/<group>/<name>
+# and become `<group>:<name>` (tasks/dot/drift -> `mise run dot:drift`).
+# A conf.d *folder* resolves includes inside itself; a top-level global
+# config.toml would resolve them against $HOME instead.
+
+[task_config]
+includes = ["tasks"]

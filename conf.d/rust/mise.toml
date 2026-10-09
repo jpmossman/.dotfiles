@@ -1,0 +1,21 @@
+# Former `cargo binstall` installs (install.sh's install_pack_cargo).
+# bat/fd/sd/lsd/sccache moved to aqua binaries in cli/ and here.
+# Dropped: cargo-install-update (mise upgrade replaces it), bob (mise neovim).
+
+[tools]
+sccache = "0.15.0"
+cargo-binstall = "1.25.1"
+cargo-deny = "0.19.8"
+wasm-tools = "1.251.0"
+"cargo:cargo-bloat" = "0.12.1"
+"cargo:cargo-llvm-cov" = "0.9.1"
+"cargo:cargo-dylint" = "6.1.0"
+"cargo:dylint-link" = "6.1.0"
+"cargo:elf2uf2-rs" = "2.2.0"
+"cargo:cargo-seek" = "0.2.0"
+"cargo:elf2flash" = "0.1.0"
+
+[bootstrap.packages]
+# elf2uf2-rs (libudev-sys) has no prebuilt binary and needs these to compile on Linux
+"apt:libudev-dev" = { os = "linux" }
+"apt:pkg-config" = { os = "linux" }

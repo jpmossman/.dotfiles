@@ -1,0 +1,33 @@
+# General CLIs that used to be `brew install` leaves. All prebuilt binaries
+# (aqua registry = checksum/attestation-verified GitHub releases).
+
+[tools]
+ripgrep = "15.1.0"
+jq = "1.8.2"
+yq = "4.53.3"
+fzf = "0.74.4"
+bat = "0.26.1"
+fd = "10.4.2"
+sd = "1.0.0"
+lsd = "1.2.0"
+# exa is unmaintained; eza is the fork. No macOS release binaries, so cargo.
+"cargo:eza" = "0.23.5"
+bottom = "0.14.4"
+# grex, mask, onefetch: no linux-arm64 release builds (fine on the Mac and on x64 CI)
+grex = { version = "1.4.6", os = ["macos", "linux/x64"] }
+pastel = "0.12.0"
+cloc = "2.10"
+just = "1.56.0"
+task = "3.50.0"
+mage = "1.17.2"
+mask = { version = "0.11.7", os = ["macos", "linux/x64"] }
+taplo = "0.10.0"
+typst = "0.15.0"
+shellcheck = "0.11.0"
+shfmt = "3.11.0"
+yamlfmt = "0.17.2"
+bats = "1.13.0"
+gopass = "1.16.1"
+onefetch = { version = "2.28.1", os = ["macos", "linux/x64"] }
+# presenterm isn't in the registry; it publishes GitHub releases.
+"github:mfontanini/presenterm" = "0.16.1"

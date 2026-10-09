@@ -1,0 +1,5 @@
+# `gui` module: wezterm config. The wezterm app and nerd fonts are casks in
+# host-packages/mise.gui.toml.
+
+[dotfiles]
+"~/.config/wezterm" = { source = "files/.config/wezterm", mode = "symlink-each" }

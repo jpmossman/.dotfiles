@@ -1,0 +1,34 @@
+# zsh + bash + prompt. Replaces `stow zsh bash oh-my-posh starship`.
+# Relative `source` paths resolve inside this folder (it's a conf.d folder fragment).
+
+[tools]
+oh-my-posh = "29.9.2"
+starship = "1.26.0"
+
+[dotfiles]
+"~/.zshenv" = { source = "files/.zshenv" }
+"~/.bashrc" = { source = "files/.bashrc" }
+"~/.bash_logout" = { source = "files/.bash_logout" }
+# symlink-each = stow --no-folding: ~/.config/zsh stays a real directory, so
+# oh-my-zsh (below) and .zsh_history can live in it without entering the repo.
+"~/.config/zsh" = { source = "files/.config/zsh", mode = "symlink-each" }
+"~/.config/oh-my-posh" = { source = "files/.config/oh-my-posh", mode = "symlink-each" }
+"~/.config/starship" = { source = "files/.config/starship", mode = "symlink-each" }
+
+[bootstrap.repos]
+# Was a 35 MB untracked checkout at ~/.config/zsh/ohmyzsh. Repos apply before
+# dotfiles, so the clone exists by the time .zshrc is linked.
+"~/.config/zsh/ohmyzsh" = { url = "https://github.com/ohmyzsh/ohmyzsh.git" }
+
+# NOTE: no [bootstrap.mise_shell_activate] here. Its `zshrc` target is a fixed
+# ~/.zshrc, but ZDOTDIR=~/.config/zsh means zsh never reads that file. The
+# activation line lives in files/.config/zsh/.zshrc instead.
+
+[env]
+KANBAN_FILE = "{{ env.HOME }}/.local/share/kanban/boards.json"
+BARTIB_FILE = "{{ env.HOME }}/notes/bartib.txt"
+
+[bootstrap.user]
+# /bin/zsh exists on macOS and on usrmerge distros (Ubuntu/Debian); apt:zsh in
+# host-packages/ installs it on Linux before this runs.
+login_shell = "/bin/zsh"

@@ -1,0 +1,4 @@
+# Terminal multiplexer (every profile). The wezterm config is in mise.gui.toml.
+
+[tools]
+zellij = "0.44.3"

@@ -1,2 +1,11 @@
+# machine-local, written by install.sh
+/miserc.toml
+/miserc.local.toml
+# private work layer is its own repo, cloned here on work machines
+/conf.d/work/
+# local overrides and test artifacts
+*.local.toml
+/.sandbox/
+*.log
 .zcompdump*
 .*history

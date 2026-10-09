@@ -1,0 +1,30 @@
+# Host packages every profile gets: system utilities and libraries that belong
+# in the host prefix rather than in per-project [tools]. On macOS mise installs
+# brew formulae itself (no `brew` needed) into /opt/homebrew; on Linux, apt.
+# GUI apps and fonts are in mise.gui.toml.
+
+[bootstrap.packages]
+# macOS ships git with the Xcode command line tools; enable for a newer one:
+# "brew:git" = { os = "macos" }
+"brew:git-lfs" = { os = "macos" }
+"brew:gnu-sed" = { os = "macos" }
+"brew:gnu-tar" = { os = "macos" }
+"brew:uutils-coreutils" = { os = "macos" }
+"brew:wget" = { os = "macos" }
+"brew:fswatch" = { os = "macos" }
+"brew:pass" = { os = "macos" }
+"brew:sshpass" = { os = "macos" }
+"brew:poppler" = { os = "macos" }
+"brew:ocrmypdf" = { os = "macos" }
+"brew:fulsomenko/tap/kanban" = { os = "macos" }
+"brew:cowsay" = { os = "macos" }
+"brew:figlet" = { os = "macos" }
+"brew:lolcat" = { os = "macos" }
+"brew:neofetch" = { os = "macos" }
+
+"apt:git" = { os = "linux" }
+"apt:git-lfs" = { os = "linux" }
+"apt:pass" = { os = "linux" }
+"apt:zsh" = { os = "linux" }
+"apt:xz-utils" = { os = "linux" }        # many toolchains ship as .tar.xz
+"apt:build-essential" = { os = "linux" } # cargo: tools without binstall artifacts compile

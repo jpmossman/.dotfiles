@@ -1,0 +1,43 @@
+# Firmware toolchain. Replaces hand-unpacked tarballs in ~/scripts/ and the
+# matching PATH lines in .zshrc, plus brew cmake/ninja/conan and the
+# gcc-arm-embedded cask (which duplicated ~/scripts/arm-gnu-toolchain).
+
+[tools]
+cmake = "4.4.0"
+ninja = "1.13.2"
+"pipx:conan" = "2.30.0"
+"pipx:conan-server" = "2.23.0" # was a `uv tool`; matches the version installed today
+# ~/scripts/clang-format-20 is a symlink into the full LLVM tarball; the
+# PyPI wheel ships just clang-format and is ~2 MB instead of ~1 GB.
+"pipx:clang-format" = "20.1.8"
+"github:probe-rs/probe-rs" = { version = "0.29.1", matching = "probe-rs-tools" }
+
+# ARM publishes on developer.arm.com, not GitHub, so this uses the http: backend.
+[tools."http:arm-none-eabi"]
+version = "15.2.rel1"
+# setting bin_path disables the automatic unwrap of the tarball's top-level dir
+strip_components = 1
+bin_path = "bin"
+
+[tools."http:arm-none-eabi".platforms]
+macos-arm64 = { url = "https://developer.arm.com/-/media/Files/downloads/gnu/{{version}}/binrel/arm-gnu-toolchain-{{version}}-darwin-arm64-arm-none-eabi.tar.xz" }
+linux-arm64 = { url = "https://developer.arm.com/-/media/Files/downloads/gnu/{{version}}/binrel/arm-gnu-toolchain-{{version}}-aarch64-arm-none-eabi.tar.xz" }
+linux-x64 = { url = "https://developer.arm.com/-/media/Files/downloads/gnu/{{version}}/binrel/arm-gnu-toolchain-{{version}}-x86_64-arm-none-eabi.tar.xz" }
+
+# Full LLVM 20 (replaces ~/scripts/LLVM-20.1.8-macOS-ARM64 and brew llvm on PATH).
+# Large download; comment out if clang-format above is all you need.
+[tools."github:llvm/llvm-project"]
+version = "20.1.8"
+version_prefix = "llvmorg-"
+strip_components = 1
+bin_path = "bin"
+
+[tools."github:llvm/llvm-project".platforms]
+macos-arm64 = { asset_pattern = "LLVM-*-macOS-ARM64.tar.xz" }
+linux-arm64 = { asset_pattern = "LLVM-*-Linux-ARM64.tar.xz" }
+linux-x64 = { asset_pattern = "LLVM-*-Linux-X64.tar.xz" }
+
+[bootstrap.packages]
+# lcov is perl + a pile of perl modules; a host package is the sane home for it.
+"brew:lcov" = { os = "macos" }
+"apt:lcov" = { os = "linux" }

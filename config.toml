@@ -1,0 +1,30 @@
+# Global mise config. This repo *is* ~/.config/mise (install.sh clones it there).
+#
+# Base setup lives in conf.d/<concern>/mise.toml "folder fragments": each folder
+# carries its tools, packages, env and dotfile sources side by side. Optional
+# modules are conf.d/<concern>/mise.<module>.toml files, loaded only when the
+# module is listed in this machine's miserc.toml (written by install.sh):
+#
+#   gui       desktop apps, fonts, terminal config
+#   personal  personal git identity
+#   embedded  firmware toolchain (cmake, ninja, ARM GCC, LLVM, probe-rs)
+#   work      private layer, cloned into conf.d/work/ (not part of this repo)
+
+[settings]
+# GitHub API token for github:/aqua: tool downloads (rate limits, private
+# releases). mise can't read gh's keychain-backed token on its own, so ask gh;
+# fall back to $GITHUB_TOKEN on headless machines that never ran `gh auth login`.
+github.credential_command = "gh auth token 2>/dev/null || printenv GITHUB_TOKEN"
+
+# symlink-each is stow --no-folding: real directories, linked files
+dotfiles.default_mode = "symlink"
+dotfiles.relative_symlinks = false
+
+# Prefer prebuilt binaries for cargo: tools instead of compiling them.
+cargo.binstall = true
+# pipx: tools are installed with uv (which mise itself manages in core/).
+pipx.uvx = true
+
+# Deliberately no `lockfile = true`: global config never gets a mise.lock, and
+# in mise 2026.9-2026.10 the setting makes pipx: installs land in
+# `<ver>~uv~<hash>` dirs that mise then reports as missing. Lock per project.

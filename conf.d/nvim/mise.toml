@@ -1,0 +1,12 @@
+# Neovim + config. Replaces bob-nvim (cargo) and its PATH/env lines, and `stow nvim`.
+# 0.9.1 is what bob pins today; bump deliberately — the NvChad v2-era config
+# in files/ may need work on 0.10+.
+
+[tools]
+# 0.9.1 predates official linux-arm64 builds (they start at 0.10.4)
+neovim = { version = "0.9.1", os = ["macos", "linux/x64"] }
+
+[dotfiles]
+# Whole-directory symlink: lazy.nvim writes lazy-lock.json back into the
+# source, which is what you want for a tracked lockfile.
+"~/.config/nvim" = { source = "files/.config/nvim", mode = "symlink" }

@@ -1,0 +1,11 @@
+# git config + git-adjacent CLIs. git and git-lfs themselves are host packages.
+
+[tools]
+gh = "2.97.0"
+delta = "0.19.2"
+
+[dotfiles]
+# The gh credential helper is a PATH lookup (`!gh`), so the same file works
+# on macOS and Linux and with mise's gh. user.name/email come from the
+# profile's ~/.config/git/identity (personal/ or the private work layer).
+"~/.config/git" = { source = "files/.config/git", mode = "symlink-each" }

@@ -1,0 +1,104 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Ported from the OhMyPosh theme oh-my-posh/julia.yaml.
+# Three-line prompt:
+#   ┏━ HH:MM:SS - <dur>  user @ host <os> ZSH
+#   ┣━ <python> [ <branch> <status> ] <full path>
+#   ┗━ $   (red on non-zero exit)
+
+format = """
+[┏━ ](light-gray)$time$cmd_duration$username$hostname$os$shell
+[┣━ ](light-gray)$python$git_branch$git_status$directory
+[┗━ ](light-gray)$character"""
+
+add_newline = false
+palette = 'julia'
+
+[palettes.julia]
+light-blue  = '#61AFEF'
+light-gray  = '#707070'
+light-green = '#4CDCAD'
+orange      = '#E67300'
+pale-blue   = '#AFEEEE'
+pale-green  = '#98FB98'
+pale-red    = '#F4364C'
+pale-yellow = '#F3E5AB'
+red         = '#FF0000'
+
+# ┏━ line --------------------------------------------------------------------
+[time]
+disabled = false
+time_format = '%H:%M:%S'
+format = '[$time](light-gray)'
+
+[cmd_duration]
+min_time = 0
+show_milliseconds = true
+format = '[ - $duration](light-gray)'
+
+[username]
+show_always = true
+format = '[  $user](orange)'
+style_user = 'orange'
+style_root = 'orange'
+
+[hostname]
+ssh_only = false
+ssh_symbol = " "    # nerd-font remote/network glyph (shown only over SSH)
+trim_at = ''
+format = '[ @ $ssh_symbol$hostname](orange)'
+
+[os]
+disabled = false
+format = '[ $symbol](orange)'
+
+[os.symbols]
+Macos   = " "
+Linux   = " "
+Ubuntu  = " "
+Debian  = " "
+Arch    = " "
+Fedora  = " "
+Windows = " "
+
+[shell]
+disabled = false
+zsh_indicator = 'ZSH'
+bash_indicator = 'BASH'
+powershell_indicator = 'PS'
+cmd_indicator = 'CMD'
+nu_indicator = 'NU'
+unknown_indicator = ''
+format = '[ $indicator](light-gray)'
+
+# ┣━ line --------------------------------------------------------------------
+[python]
+symbol = " "    # nerd-font python glyph
+format = '[ ${symbol}(${version} )(\($virtualenv\) )](light-green)'
+
+[git_branch]
+symbol = ''
+format = '[ \[ $branch ](light-green)'   # opens the OMP-style "[ branch ... ]" group
+
+[git_status]
+style = 'light-gray'
+format = '[$all_status$ahead_behind\]](light-gray)'   # closes the bracket group
+ahead      = '[*](red)'
+behind     = '[!](red)'
+diverged   = '[!](red)[*](red)'
+conflicted = '[${count}! ](red)'
+modified   = '[${count}M ](pale-yellow)'
+deleted    = '[${count}D ](pale-red)'
+untracked  = '[${count}U ](pale-green)'
+staged     = '[+${count}A ](pale-blue)'
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+home_symbol = '~'
+format = '[ $path](light-blue)'
+
+# ┗━ line --------------------------------------------------------------------
+[character]
+success_symbol = '[\$](light-gray)'
+error_symbol = '[\$](red)'

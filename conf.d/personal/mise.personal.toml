@@ -1,0 +1,5 @@
+# `personal` module: things that belong only on my own machines.
+
+[dotfiles]
+# git identity, pulled in by the [include] in conf.d/git/files/.config/git/config
+"~/.config/git/identity" = { source = "files/.config/git/identity" }

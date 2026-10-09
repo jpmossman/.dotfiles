@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Word-splitting command output into names is intended throughout.
+# shellcheck disable=SC2046,SC2010
+#MISE description="List software installed outside mise that this config doesn't declare (read-only)"
+# Answers "what did I install by hand since the last time I updated the config?"
+# Sources checked: brew leaves + casks, ~/.cargo/bin, ~/go/bin, `uv tool list`.
+set -euo pipefail
+
+declared_tools=$(mise ls --current --json 2>/dev/null | jq -r 'keys[]' | sed -E 's|^[a-z]+:||; s|/v[0-9]+$||; s|.*/||')
+declared_pkgs=$(mise bootstrap packages status --json 2>/dev/null | jq -r '.[].packages[].package' | sed -E 's|.*/||')
+# Replaced or dropped on purpose when moving to mise — not drift.
+intentional="mise bob cargo-install-update cargo-install-update-config gcc-arm-embedded"
+declared=$(printf '%s\n%s\n%s\n' "$declared_tools" "$declared_pkgs" "${intentional// /$'\n'}" | sort -u)
+
+# brew/cargo names that differ from their mise names
+alias_of() {
+  case "$1" in
+    git-delta) echo delta ;; go-task) echo task ;; bats-core) echo bats ;;
+    exa) echo eza ;; fd-find) echo fd ;; cargo-embed|cargo-flash) echo probe-rs ;;
+    *) echo "$1" ;;
+  esac
+}
+
+report() {
+  local source=$1; shift
+  local missing=()
+  for n in "$@"; do
+    grep -qxF "$(alias_of "${n##*/}")" <<<"$declared" || missing+=("$n")
+  done
+  if ((${#missing[@]})); then printf '%-12s %s\n' "$source" "${missing[*]}"; fi
+}
+
+command -v brew >/dev/null && {
+  report "brew" $(brew leaves 2>/dev/null)
+  report "brew-cask" $(brew list --cask 2>/dev/null)
+}
+# rustup proxies and toolchain binaries are provided by mise's rust, not separate tools
+[ -d ~/.cargo/bin ] && report "cargo" $(ls ~/.cargo/bin | grep -vxE 'cargo|cargo-(clippy|fmt|miri)|clippy-driver|rls|rust-(analyzer|gdb|gdbgui|lldb)|rustc|rustdoc|rustfmt|rustup')
+[ -d ~/go/bin ] && report "go" $(ls ~/go/bin | grep -vE '^go[0-9]')
+command -v uv >/dev/null && report "uv-tool" $(uv tool list 2>/dev/null | awk '/^[a-z]/{print $1}')
+echo "(names above are installed but not declared in $(mise config ls --no-header 2>/dev/null | wc -l | tr -d ' ') config files)"
