@@ -60,9 +60,57 @@ matching `mise.<module>.toml`. Git identity works the same way: the shared git c
 | apply everything | `mise bootstrap` |
 | pull updates | `git -C ~/.config/mise pull && mise bootstrap` |
 | switch modules | edit `~/.config/mise/miserc.toml`, then `mise bootstrap`; `mise bootstrap unapply <module>` removes a dropped module's files |
-| add a tool | add it to the matching `conf.d/*/mise.toml` (`mise use -g` writes to `config.toml`) |
+| add software | see [Adding software](#adding-software) |
 | upgrade pins | `mise outdated`, `mise upgrade --bump` |
 | find unmanaged installs | `mise run dot:drift` |
+
+## Adding software
+
+Install through mise and point it at the right file. That writes the change
+into this checkout (`~/.config/mise`, also reachable as `~/.dotfiles`), so it
+shows up in `git status`.
+
+**CLI tools and runtimes:**
+
+```sh
+mise use --path ~/.config/mise/conf.d/cli/mise.toml hyperfine@latest
+```
+
+- `@latest` resolves to the current version and pins it.
+- Pick the folder that fits: `cli/`, `rust/`, `go/`, `python/`, …
+- For something only one profile should get, use that module's file, e.g.
+  `conf.d/embedded/mise.embedded.toml`.
+- `mise use -g` also works, but it writes to the top-level `config.toml`; move the line later.
+- **Watch out:** plain `mise use foo` (no `-g`/`--path`) writes to the project `mise.toml` in
+  whatever directory you're in.
+
+**Apps, casks, fonts, system libraries:**
+
+```sh
+mise bootstrap packages use --path ~/.config/mise/conf.d/host-packages/mise.toml brew:jq
+mise bootstrap packages use --path ~/.config/mise/conf.d/host-packages/mise.gui.toml brew-cask:obsidian
+```
+
+- That writes the entry and installs it in one step.
+- Add `os = "macos"` (or `"linux"`) by hand to match the neighbouring entries.
+- Prefer this over running `brew` yourself: machines set up from this repo get brew packages
+  from mise and may not have `brew` at all.
+
+**Installed something by hand anyway** (`brew install`, `cargo install`, `uv tool install`)?
+
+- `mise run dot:drift` lists everything installed that the config doesn't declare. Add each one
+  with the commands above.
+- `mise bootstrap packages import --manager brew --dry-run` prints ready-to-paste brew entries.
+
+**Then record it:**
+
+```sh
+cd ~/.dotfiles && git add -A && git commit -m "add hyperfine" && git push
+```
+
+Other machines pick it up with `git -C ~/.config/mise pull && mise bootstrap`. Work-only tools
+belong in the private layer instead: edit `~/.config/mise/conf.d/work/mise.work.toml`, then
+commit and push from that directory (it's its own repo).
 
 ## Testing changes
 
