@@ -3,3 +3,8 @@
 [dotfiles]
 # git identity, pulled in by the [include] in conf.d/git/files/.config/git/config
 "~/.config/git/identity" = { source = "files/.config/git/identity" }
+
+[bootstrap.packages]
+# Personal apps (macOS only; mise's brew-cask installs only fonts on Linux).
+"brew-cask:1password" = { os = "macos", adopt = true }
+"brew-cask:discord" = { os = "macos", adopt = true }

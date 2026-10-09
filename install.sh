@@ -63,6 +63,10 @@ case $(uname -s) in
       xcode-select --install || true
       die "install the Xcode Command Line Tools (dialog opened), then re-run"
     fi
+    # With full Xcode.app installed, git refuses to run until its license is accepted.
+    if ! git --version >/dev/null 2>&1; then
+      die "git can't run yet; accept the Xcode license with \`sudo xcodebuild -license accept\`, then re-run"
+    fi
     ;;
   Linux)
     missing=""

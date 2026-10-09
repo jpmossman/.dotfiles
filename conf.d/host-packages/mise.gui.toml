@@ -7,6 +7,7 @@
 "brew-cask:wireshark-app" = { os = "macos", adopt = true }
 "brew-cask:copilot-cli" = { os = "macos", adopt = true }
 "brew-cask:corelocationcli" = { os = "macos", adopt = true }
+"brew-cask:firefox" = { os = "macos", adopt = true }
 "brew:mpv" = { os = "macos" }
 "brew:fancy-cat" = { os = "macos" }
 "brew:sane-backends" = { os = "macos" }

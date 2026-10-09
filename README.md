@@ -5,6 +5,33 @@ host packages and dotfile links) as one [mise](https://mise.jdx.dev) configurati
 
 ## New machine
 
+### Before you start
+
+**macOS**
+
+1. **Use an admin account.** You'll be asked for your password: mise creates `/opt/homebrew`
+   with sudo once, and apps go into `/Applications`.
+2. **Install the Xcode Command Line Tools:** `xcode-select --install`, then click through the
+   dialog. If you skip this, `install.sh` opens the dialog and asks you to re-run.
+   - No Xcode license step is needed for the Command Line Tools alone.
+   - Only if the full **Xcode.app** is installed, accept its license first:
+     `sudo xcodebuild -license accept`. Otherwise `git` won't run, and `install.sh` stops with
+     that hint.
+3. Nothing else: no Homebrew and no Rosetta. `curl` and `sh` ship with macOS.
+
+**Linux (Debian/Ubuntu)**
+
+- A user with sudo. `install.sh` apt-installs `git`, `curl` and `xz-utils` if they're missing.
+- Bare images often lack `curl` itself:
+  `sudo apt-get update && sudo apt-get install -y curl`.
+
+**GitHub login: not needed for `personal`.** A fresh personal install was tested with no
+token and stayed under GitHub's anonymous rate limit. Work profiles run `gh auth login` for
+you, because the private layer needs it. If a download ever fails with a 403 or rate-limit
+error, re-run with `| GITHUB_TOKEN=<token> sh`.
+
+### Install
+
 ```sh
 curl -fsSL https://raw.githubusercontent.com/jpmossman/.dotfiles/main/install.sh | sh
 ```
