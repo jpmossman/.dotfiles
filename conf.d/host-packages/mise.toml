@@ -20,7 +20,7 @@
 "brew:cowsay" = { os = "macos" }
 "brew:figlet" = { os = "macos" }
 "brew:lolcat" = { os = "macos" }
-"brew:neofetch" = { os = "macos" }
+"brew:fastfetch" = { os = "macos" }
 
 "apt:git" = { os = "linux" }
 "apt:git-lfs" = { os = "linux" }
